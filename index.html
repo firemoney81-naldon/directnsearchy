@@ -1,23 +1,834 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Home</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <!--
-      Need a visual blank slate?
-      Remove all code in `styles.css`!
-    -->
-    <link rel="stylesheet" href="styles.css" />
-    <script type="module" src="script.js"></script>
-  </head>
-  <body>
-    <nav>
-      <a href="/" aria-current="page">Home</a>
-      <a href="/page2.html">Other page</a>
-    </nav>
-    <main>
-      <h1>Home page</h1>
-    </main>
-  </body>
-</html>
+
+
+  <style>
+    /* 다채롭고 부드러운 현대식 테마 스타일 구현 */
+    :root {
+      --primary-color: #0f172a;
+      --secondary-color: #0284c7;
+      --accent-color: #0d9488;
+      --highlight-color: #f59e0b;
+      --text-dark: #1e293b;
+      --text-muted: #64748b;
+      --bg-main: #f8fafc;
+      --bg-card: #ffffff;
+      --border-color: #e2e8f0;
+      --border-radius: 12px;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.05), 0 1px 2px rgba(0,0,0,0.03);
+      --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03);
+      --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.05), 0 4px 6px -2px rgba(0,0,0,0.03);
+    }
+
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      line-height: 1.75;
+      margin: 0;
+      padding: 0;
+      background: var(--bg-main);
+      color: var(--text-dark);
+      word-break: keep-all;
+    }
+
+    header {
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+      color: #ffffff;
+      padding: 60px 20px;
+      text-align: center;
+      border-bottom: 4px solid var(--secondary-color);
+    }
+
+    header h1 {
+      font-size: 2.2rem;
+      font-weight: 900;
+      margin: 0 0 15px 0;
+      letter-spacing: -0.05em;
+    }
+
+    header p {
+      font-size: 1.1rem;
+      font-weight: 300;
+      margin: 0 auto;
+      max-width: 700px;
+      opacity: 0.9;
+    }
+
+    nav {
+      background: var(--bg-card);
+      border-bottom: 1px solid var(--border-color);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--shadow-sm);
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin: 0;
+      padding: 10px 0;
+    }
+
+    nav li {
+      margin: 5px 15px;
+    }
+
+    nav a {
+      color: var(--text-dark);
+      font-weight: 500;
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: color 0.2s ease;
+    }
+
+    nav a:hover {
+      color: var(--secondary-color);
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    section {
+      background: var(--bg-card);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-md);
+      padding: 40px;
+      margin-bottom: 35px;
+      border: 1px solid var(--border-color);
+    }
+
+    h2 {
+      font-size: 1.6rem;
+      color: var(--primary-color);
+      border-left: 5px solid var(--secondary-color);
+      padding-left: 15px;
+      margin-top: 0;
+      margin-bottom: 25px;
+      font-weight: 700;
+    }
+
+    h3 {
+      font-size: 1.25rem;
+      color: var(--secondary-color);
+      margin-top: 30px;
+      margin-bottom: 15px;
+      font-weight: 700;
+    }
+
+    p {
+      margin-top: 0;
+      margin-bottom: 20px;
+      color: var(--text-dark);
+      font-size: 1rem;
+    }
+
+    /* 테이블 스타일 개선 */
+    .table-container {
+      overflow-x: auto;
+      margin: 25px 0;
+      border-radius: var(--border-radius);
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--bg-card);
+      min-width: 600px;
+    }
+
+    th, td {
+      padding: 14px 16px;
+      font-size: 0.95rem;
+      border-bottom: 1px solid var(--border-color);
+      text-align: center;
+    }
+
+    th {
+      background-color: #f1f5f9;
+      color: var(--primary-color);
+      font-weight: 700;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr:hover td {
+      background-color: #f8fafc;
+    }
+
+    /* 그래프 스타일 구현 */
+    .graph-container {
+      background: #f8fafc;
+      border: 1px solid var(--border-color);
+      border-radius: var(--border-radius);
+      padding: 25px;
+      margin: 25px 0;
+    }
+
+    .graph-title {
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: var(--primary-color);
+      font-size: 1.05rem;
+      text-align: center;
+    }
+
+    .graph-row {
+      margin-bottom: 15px;
+    }
+
+    .graph-row:last-child {
+      margin-bottom: 0;
+    }
+
+    .graph-label {
+      font-size: 0.9rem;
+      font-weight: 500;
+      margin-bottom: 5px;
+      display: block;
+      color: var(--text-dark);
+    }
+
+    .graph-bar-bg {
+      background: #e2e8f0;
+      border-radius: 6px;
+      height: 20px;
+      width: 100%;
+      position: relative;
+    }
+
+    .graph-bar-fill {
+      height: 100%;
+      border-radius: 6px;
+      transition: width 1s ease-in-out;
+    }
+
+    .fill-blue { background: linear-gradient(90deg, #38bdf8, #0284c7); }
+    .fill-teal { background: linear-gradient(90deg, #2dd4bf, #0d9488); }
+    .fill-orange { background: linear-gradient(90deg, #fbbf24, #d97706); }
+    .fill-indigo { background: linear-gradient(90deg, #818cf8, #4f46e5); }
+
+    .graph-value {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #ffffff;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+    }
+
+    /* 리스트 스타일 개선 */
+    ul, ol {
+      padding-left: 24px;
+      margin-bottom: 20px;
+    }
+
+    li {
+      margin-bottom: 10px;
+      font-size: 0.98rem;
+    }
+
+    /* CTA 버튼 및 입력창 스타일 */
+    .btn-cta {
+      display: inline-block;
+      padding: 15px 30px;
+      background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+      color: #ffffff;
+      font-weight: 700;
+      border-radius: 50px;
+      box-shadow: 0 4px 10px rgba(2, 132, 199, 0.3);
+      transition: all 0.3s ease;
+      text-align: center;
+      margin-top: 20px;
+      cursor: pointer;
+      border: none;
+      font-size: 1.05rem;
+      text-decoration: none;
+    }
+
+    .btn-cta:hover {
+      background: linear-gradient(135deg, #0369a1 0%, #0284c7 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(2, 132, 199, 0.4);
+    }
+
+    .btn-container {
+      text-align: center;
+      margin: 30px 0;
+    }
+
+    /* 체류시간 확보를 위한 다단 입력 폼 영역 */
+    .premium-calculator {
+      background: #f1f5f9;
+      border-radius: var(--border-radius);
+      padding: 30px;
+      border: 1px solid var(--border-color);
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 768px) {
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-group label {
+      font-size: 0.9rem;
+      font-weight: 500;
+      margin-bottom: 8px;
+      color: var(--primary-color);
+    }
+
+    .form-group input, .form-group select, .form-group textarea {
+      padding: 12px;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      font-size: 0.95rem;
+      outline: none;
+      background: #ffffff;
+      transition: border-color 0.2s ease;
+    }
+
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+      border-color: var(--secondary-color);
+      box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+    }
+
+    .checkbox-group {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .checkbox-item {
+      display: flex;
+      align-items: center;
+      font-size: 0.88rem;
+    }
+
+    .checkbox-item input {
+      margin-right: 8px;
+      width: 16px;
+      height: 16px;
+    }
+
+    /* 외부 링크 영역 */
+    .link-box {
+      background-color: #f8fafc;
+      border-left: 4px solid var(--accent-color);
+      padding: 20px;
+      border-radius: 0 var(--border-radius) var(--border-radius) 0;
+      margin: 25px 0;
+    }
+
+    .link-box h4 {
+      margin-top: 0;
+      margin-bottom: 12px;
+      color: var(--primary-color);
+      font-size: 1.05rem;
+    }
+
+    .link-list {
+      list-style: none;
+      padding-left: 0;
+      margin: 0;
+    }
+
+    .link-list li {
+      margin-bottom: 8px;
+    }
+
+    .link-list a {
+      color: var(--secondary-color);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .link-list a:hover {
+      text-decoration: underline;
+    }
+
+    footer {
+      background: var(--primary-color);
+      color: #94a3b8;
+      padding: 40px 20px;
+      text-align: center;
+      font-size: 0.85rem;
+      border-top: 1px solid #334155;
+    }
+
+    footer p {
+      color: #94a3b8;
+      margin: 5px 0;
+    }
+
+    /* 내부 스크롤 앵커 오프셋 */
+    .anchor {
+      display: block;
+      position: relative;
+      top: -80px;
+      visibility: hidden;
+    }
+  </style>
+
+  <!-- Schema.org FinancialService JSON-LD 마크업 -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FinancialService",
+    "name": "BYD 씰 자동차보험료 비교 견적 센터",
+    "image": "https://images.unsplash.com/photo-1563986768609-322da13575f3",
+    "url": "https://도메인/byd-seal-insurance",
+    "telephone": "1588-0000",
+    "priceRange": "₩₩₩",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "서울특별시 중구 세종대로",
+      "addressLocality": "중구",
+      "addressRegion": "서울",
+      "postalCode": "04511",
+      "addressCountry": "KR"
+    },
+    "description": "2026년 최신 BYD 씰(SEAL) RWD 및 AWD 모델의 연령별 자동차보험 평균 예상 금액과 다이렉트 가입 할인 혜택 비교 가이드.",
+    "provider": {
+      "@type": "Organization",
+      "name": "다이렉트 자동차보험 비교 분석 서비스",
+      "logo": "https://도메인/logo.png"
+    },
+    "offers": {
+      "@type": "Offer",
+      "priceCurrency": "KRW",
+      "price": "0",
+      "description": "실시간 다이렉트 자동차보험 비교 견적 및 컨설팅 상담 무료 제공"
+    }
+  }
+  </script>
+</head>
+
+<body>
+  <header>
+    <h1>BYD 씰(SEAL) 자동차보험료 평균 예상 비교 견적</h1>
+    <p>2026년 최신 데이터 기준 연령별, 트림별 평균 보험 가입 요율과 가장 합리적인 다이렉트 비교 최적화 설계 방안을 안내해 드립니다.</p>
+    <a href="#calculator" class="btn-cta">실시간 내 예상 보험료 계산하기</a>
+  </header>
+
+  <nav aria-label="메인 네비게이션">
+    <ul>
+      <li><a href="#intro">BYD 씰 보험 분석</a></li>
+      <li><a href="#age-analysis">연령별 평균 금액</a></li>
+      <li><a href="#trim-analysis">트림별 차이점</a></li>
+      <li><a href="#keyword-trend">트렌드 및 리뷰</a></li>
+      <li><a href="#direct-discount">다이렉트 할인 팁</a></li>
+      <li><a href="#calculator">보험료 자가 계산기</a></li>
+      <li><a href="#reference">공식 참조 소스</a></li>
+    </ul>
+  </nav>
+
+  <div class="container">
+    <section id="intro">
+      <span id="intro-anchor" class="anchor"></span>
+      <h2>BYD 씰(SEAL) 전기세단 시장 트렌드와 2026년 보험 요율 특징</h2>
+      <p>중국의 친환경 에너지 모빌리티 브랜드인 BYD가 국내 시장에 야심 차게 선보인 중형 전기 세단인 BYD 씰(SEAL)은 뛰어난 주행 성능과 압도적인 가성비를 앞세워 한국 소비자의 눈길을 사로잡고 있습니다. 특히 후륜구동(RWD) 기본 모델의 경우 국가 및 지자체 전기차 지원금 혜택을 적용할 시 실구매 가격이 3000만 원대로 낮아져 동급 국산 및 수입 전기 세단 중 경쟁 상대를 찾기 힘든 메리트를 보유하고 있습니다.</p>
+      
+      <p>하지만 전기차 가입자들 사이에서 차량 인도 이후 유지비 측면의 핵심 고려사항으로 부상한 것이 바로 자동차보험 요율입니다. 수입 전기 세단이라는 포지션의 특성상 사고 발생 시 외장 부품 수급 기간이나 수입사 전용 배터리 모듈 교체 비용에 대한 우려로 인해 일반 내연기관 차량에 비해 보험사들이 보수적인 손해율을 적용하고 있기 때문입니다. 경미한 하부 스크래치나 손상에도 모듈 단위가 아닌 셀투바디 기술이 결합된 통합 배터리 전체 교체 판정이 나오는 경우가 드물게 보고되면서, 일부 종합 손해보험사는 인수를 보수적으로 검토하거나 기본 요율 자체를 높게 산정하기도 합니다.</p>
+      
+      <p>따라서 차량 출고 단계에서 단순히 차량 가격만 비교하기보다, 신규 등록 시 적용되는 개별 연령 및 운전 경력에 맞춰 연간 비용을 꼼꼼하게 따져보는 금융 컨설팅적 시각이 필수적입니다. 본 가이드에서는 각 보험사가 제공하는 다이렉트 온라인 채널의 혜택 및 특약을 총망라하여 어떤 방식으로 견적을 비교하고 가장 저렴한곳 위주로 가입을 마쳐야 하는지 상세한 분석 데이터를 토대로 해설해 드립니다.</p>
+    </section>
+
+    <section id="age-analysis">
+      <span id="age-analysis-anchor" class="anchor"></span>
+      <h2>연령별 및 가입 경력별 BYD 씰 자동차보험 평균 예상 금액 비교</h2>
+      <p>자동차보험 요율을 산정할 때 나이와 주행 이력은 전체 견적 금액의 80퍼센트 이상을 좌우하는 중추적인 변수입니다. 특히 BYD 씰과 같은 고출력 듀얼 모터 모델(Dynamic AWD 등 최고 530마력 상당)은 젊은 연령층에서 자차 손해 한도를 지정할 경우 사고 확률 가중 요인이 추가 반영되기도 합니다. 가입자의 세대별 운행 조건과 사고 이력을 조합한 평균 연간 보험 비용 데이터를 아래 표와 그래프를 통해 직관적으로 비교할 수 있습니다.</p>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>구분 및 운전자 연령</th>
+              <th>연간 예상 평균 보험료</th>
+              <th>가장 저렴한곳 다이렉트 추천</th>
+              <th>주요 할인 특약 및 특징</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>만 21세 이하 (신규 가입 기준)</td>
+              <td>2,850,000원 ~ 3,600,000원</td>
+              <td>A사 다이렉트 온라인</td>
+              <td>부모님 1인 지정 및 티맵 안전운전 혜택 결합 필수</td>
+            </tr>
+            <tr>
+              <td>만 24세 이하 (운전경력 1년 미만)</td>
+              <td>1,950,000원 ~ 2,500,000원</td>
+              <td>B사 다이렉트 모바일앱</td>
+              <td>군 운전병 경력 인정 및 블랙박스 추가 연계</td>
+            </tr>
+            <tr>
+              <td>만 26세 이상 (무사고 3년 경력)</td>
+              <td>1,200,000원 ~ 1,600,000원</td>
+              <td>C사 인터넷 다이렉트</td>
+              <td>대중교통 이용 할인 및 주행거리 마일리지 환급</td>
+            </tr>
+            <tr>
+              <td>만 30세 이상 (부부한정 특약 적용)</td>
+              <td>850,000원 ~ 1,150,000원</td>
+              <td>D사 모바일 제휴 채널</td>
+              <td>만 6세 이하 자녀 할인 및 커넥티드카 안전장치 적용</td>
+            </tr>
+            <tr>
+              <td>만 43세 이상 (가족한정 및 장기 무사고)</td>
+              <td>650,000원 ~ 880,000원</td>
+              <td>E사 스마트 원스톱 사이트</td>
+              <td>블랙박스 상시 녹화 및 차선이탈방지 기본 보장</td>
+            </tr>
+            <tr>
+              <td>만 49세 이상 (부부한정 및 시니어 혜택)</td>
+              <td>580,000원 ~ 790,000원</td>
+              <td>F사 온라인 डायरेक्ट 몰</td>
+              <td>이메일 고지서 할인 및 고령 운전자 안전교육 이수</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="graph-container">
+        <div class="graph-title">연령대별 연간 자동차보험 평균 금액 시각화 자료 (단위: 원)</div>
+        
+        <div class="graph-row">
+          <span class="graph-label">만 21세 이하 신규 (평균 3,220,000원)</span>
+          <div class="graph-bar-bg">
+            <div class="graph-bar-fill fill-orange" style="width: 95%;"></div>
+            <span class="graph-value">3,220,000원</span>
+          </div>
+        </div>
+
+        <div class="graph-row">
+          <span class="graph-label">만 24세 이하 (평균 2,225,000원)</span>
+          <div class="graph-bar-bg">
+            <div class="graph-bar-fill fill-orange" style="width: 68%;"></div>
+            <span class="graph-value">2,225,000원</span>
+          </div>
+        </div>
+
+        <div class="graph-row">
+          <span class="graph-label">만 26세 이상 (평균 1,400,000원)</span>
+          <div class="graph-bar-bg">
+            <div class="graph-bar-fill fill-teal" style="width: 45%;"></div>
+            <span class="graph-value">1,400,000원</span>
+          </div>
+        </div>
+
+        <div class="graph-row">
+          <span class="graph-label">만 30세 이상 (평균 1,000,000원)</span>
+          <div class="graph-bar-bg">
+            <div class="graph-bar-fill fill-blue" style="width: 32%;"></div>
+            <span class="graph-value">1,000,000원</span>
+          </div>
+        </div>
+
+        <div class="graph-row">
+          <span class="graph-label">만 43세 이상 (평균 765,000원)</span>
+          <div class="graph-bar-bg">
+            <div class="graph-bar-fill fill-indigo" style="width: 24%;"></div>
+            <span class="graph-value">765,000원</span>
+          </div>
+        </div>
+      </div>
+
+      <p>상기 명시된 금액은 대인보상 무한, 대물보상 5억 원, 자기신체사고 혹은 자동차상해 2억/5천만 원, 무보험차 상해 2억 원 및 자기차량손해(자차 자부담 20퍼센트 기준) 설정을 기본 전제로 계산된 가이드라인 수치입니다. 실제 개별 사고 경력이나 주행 거리, 거주 지역의 재해 등급에 따라 수십만 원의 편차가 나타날 수 있으므로 전용 계산기 툴을 사용한 개별 진단이 반드시 선행되어야 합니다.</p>
+    </section>
+
+    <section id="trim-analysis">
+      <span id="trim-analysis-anchor" class="anchor"></span>
+      <h2>모델 트림별(RWD, Plus, Dynamic AWD) 보험 가격 및 사양의 차이점</h2>
+      <p>국내 시장에 정식 출시된 BYD 씰 세단의 트림 종류는 구동 방식과 배터리 관리 효율에 따라 세 가지로 세분화됩니다. 각 모델에 장착된 파워트레인 규격과 공차중량 차이는 자차 보험 요율 책정 시 서로 다른 리스크 등급으로 산출되며, 자사 부품 단가 및 브랜드 수리 등급 순위에도 직접적인 영향을 미칩니다.</p>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>구분 트림명</th>
+              <th>차량 출고 가격</th>
+              <th>배터리 용량 및 구동</th>
+              <th>보험상 자차 평가액 및 등급 요율</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>BYD SEAL RWD 스탠다드</td>
+              <td>39,900,000원</td>
+              <td>82.56 kWh LFP 블레이드 후륜</td>
+              <td>차량가액이 낮아 자차 기본 보험료가 상대적으로 저렴함</td>
+            </tr>
+            <tr>
+              <td>BYD SEAL RWD 플러스</td>
+              <td>41,900,000원</td>
+              <td>82.56 kWh LFP 블레이드 후륜</td>
+              <td>기본 트림 대비 고해상도 편의 옵션 추가로 자차 보상액 일부 증가</td>
+            </tr>
+            <tr>
+              <td>BYD SEAL Dynamic AWD</td>
+              <td>46,900,000원</td>
+              <td>82.56 kWh LFP 블레이드 4WD</td>
+              <td>듀얼 모터의 고성능 출력 요인으로 사고 발생률 위험 가중치 추가</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>특히 Dynamic 사륜구동 AWD 사양의 경우 전방과 후방에 각각 160kW, 230kW 모터가 독립적으로 결합되어 최대 출력이 390kW(530마력)에 달하며 제로백 3.8초의 가속 성능을 보입니다. 스포츠카 수준의 폭발적인 파워를 가진 고출력 사양인 만큼, 손해보험 협회 내부 산정 방식에 따라 일반 후륜 싱글 모터 모델에 비해 사고 발생 빈도가 다소 높은 군으로 분류됩니다. 이로 인하여 단순 차량 가격 상승 비율인 10에서 15퍼센트보다 비교적 높은 비율의 자차 보험료가 설정되는 장단점이 있습니다.</p>
+      
+      <p>반면 싱글 모터가 장착된 후륜구동 Standard 모델 및 Plus 모델은 주행 안정성 측면에서 가중 요율이 비교적 적고, 1회 충전당 환경부 인증 주행거리가 449킬로미터로 가장 긴 최적의 전력 효율을 보여주기 때문에 장거리 출퇴근을 계획하고 가입 비용을 절감하고자 하는 일상 운전자들에게 강력하게 추천됩니다.</p>
+    </section>
+
+    <section id="keyword-trend">
+      <span id="keyword-trend-anchor" class="anchor"></span>
+      <h2>네이버 웹사이트 영역 및 커뮤니티 트렌드 분석</h2>
+      <p>국내 주요 인터넷 환경을 살펴보면, 예비 오너들은 구글 및 네이버 검색창 외에도 다양한 온라인 커뮤니티인 디시 자동차 갤러리, 보배드림 친환경 전기차 포럼, 그리고 펨코 및 에펨코리아의 자동차 게시판을 통해 실제 내돈내산 계약 후기 정보를 실시간으로 공유하고 있습니다. 특히 많은 사용자들이 궁금해하는 질문 요지를 정리해 보면 다음과 같은 키워드 연계 흐름이 관측됩니다.</p>
+
+      <h3>포털 사이트 자동완성 및 실시간 연관검색어</h3>
+      <ul>
+        <li>BYD 씰 다이렉트 보험료 가장 저렴한곳 추천 사이트</li>
+        <li>수입 전기 세단 신규 계약 시 할인 혜택 사은품 현금지원 한도</li>
+        <li>토스 카카오톡 간편인증 연동 자동차보험 즉시 계산 및 모바일 어플 비교</li>
+        <li>2026년식 BYD SEALION 7 중형 SUV 출시 예정에 따른 패밀리카 보험 혜택 비교</li>
+        <li>LFP 블레이드 배터리 파손 시 전손 보장 특약 가입 한도 설정 요령</li>
+      </ul>
+
+      <p>사용자 후기 분석 결과에 따르면, 초기 출고 시 일부 대형 화재 사고 리포트 및 부품 조달 지연 뉴스로 인해 수입 전기차 보험 인수를 거부하는 소규모 전문 손해보험 업체가 존재했던 전례가 있으나, 현재는 현대해상, KB손해보험, DB손해보험, 삼성화재 등 대형 4대 브랜드를 중심으로 안정적인 수입 전기 세단 전용 특약 상품이 정착되어 원활한 승인이 가능합니다. 특히 전용 앱 및 플랫폼 제휴 가입 시 네이버페이 포인트, 카카오페이 상품권, 토스 머니 환급 등의 이벤트 혜택을 챙기는 실속형 소비 트렌드가 유튜브와 인스타그램 등 소셜 네트워크를 중심으로 빠르게 확산되고 있습니다.</p>
+    </section>
+
+    <section id="direct-discount">
+      <span id="direct-discount-anchor" class="anchor"></span>
+      <h2>다이렉트 자동차보험 비교 가입 시 필수 할인 특약 정보</h2>
+      <p>인터넷 온라인 전용 상품으로 대리점 마진 없이 다이렉트 계약을 진행하는 것은 그 자체로 설계사 수수료가 빠져 평균 15퍼센트 이상 저렴한 싼곳 가입 루트입니다. 여기에 추가로 매해 수십만 원의 납입금을 캐시백하거나 깎아낼 수 있는 검증된 할인 제도들을 놓치지 않고 적용해야 합니다.</p>
+
+      <h3>1. 모바일 길안내 연계 안전운전 할인</h3>
+      <p>티맵 또는 카카오내비 앱을 켜고 일정 거리 이상 주행하여 산출된 안전 점수가 기준 점수(보통 80점 이상)를 만족할 경우 최대 12퍼센트에서 16퍼센트에 이르는 납입 비용 절감이 즉시 제공됩니다. 급가속과 급감속을 피해 전력 소모를 최소화해야 하는 전기차 운행 특성상 가장 매칭이 잘 되는 고효율 혜택입니다.</p>
+
+      <h3>2. 주행거리 마일리지 환급 특약</h3>
+      <p>계약 기간 만기 전까지 1년간 실제 이동한 킬로미터 수에 따라 남은 보험료를 현금으로 고스란히 정산받는 제도입니다. 출퇴근 거리나 주말 가족 단위 레저 운행 성향에 맞추어 연간 3000킬로미터 이하부터 15000킬로미터 이하 구간까지 세분화된 보상을 받을 수 있습니다.</p>
+
+      <h3>3. 첨단 주행 보조 장치 및 안전 사양 기본 할인</h3>
+      <p>BYD 씰 차량은 전방 충돌 경고 및 긴급 제동 시스템, 차선 이탈 경고 시스템 및 사각지대 지능형 경보 장치가 모든 트림에 기본 사양으로 통합 적용되어 있습니다. 가입 과정에서 스마트 자율주행 안전장치 장착 여부를 선택하고 블랙박스 할인 항목을 중복 적용하면 가입 금액 추가 절감을 볼 수 있습니다.</p>
+
+      <h3>4. 제휴 카드사 결제 캐시백 및 온라인 상품권 이벤트</h3>
+      <p>각 제휴 보험사별 웹사이트 내에서 지정된 신용카드 및 간편결제 시스템으로 일시불 결제 시 3만 원 상당의 주유 상품권, 모바일 충전 크레딧 상품, 혹은 최대 5만 원 선의 사은품 현금지원이 결합되므로 가입 전 월별 이벤트를 세밀하게 대조해 보는 것이 현명합니다.</p>
+    </section>
+
+    <section id="calculator">
+      <span id="calculator-anchor" class="anchor"></span>
+      <h2>BYD 씰 맞춤형 예상 보험료 정밀 계산기 및 상담 신청</h2>
+      <p>사용자 본인의 실제 면허 취득 연한, 운행 계획, 선호하는 보장 한도를 조합하여 연간 예상 지출 비용을 근사치로 환산해 볼 수 있는 간이 모의 설계 시스템입니다. 선택 항목을 꼼꼼히 체크해 주시면, 검증된 자동차 전문가의 무료 최적화 컨설팅 상담 및 다이렉트 제휴 채널 정보를 문자메시지 혹은 카카오톡으로 즉시 받아보실 수 있습니다.</p>
+
+      <div class="premium-calculator">
+        <form action="#" method="GET" onsubmit="alert('입력하신 맞춤 설계 정보가 접수되었습니다. 곧 전문 컨설턴트가 최저 요율 산출 결과를 연락드리겠습니다.'); return false;">
+          
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="user-name">가입 신청자 성함</label>
+              <input type="text" id="user-name" name="userName" required placeholder="홍길동">
+            </div>
+
+            <div class="form-group">
+              <label for="user-phone">연락처 (안내 메시지 발송용)</label>
+              <input type="tel" id="user-phone" name="userPhone" required placeholder="010-1234-5678">
+            </div>
+
+            <div class="form-group">
+              <label for="birth-date">운전자 생년월일</label>
+              <input type="date" id="birth-date" name="birthDate" required>
+            </div>
+
+            <div class="form-group">
+              <label for="driver-age-select">지정 운전자 연령 제한 범위</label>
+              <select id="driver-age-select" name="driverAge" required>
+                <option value="">연령 범위를 선택하세요</option>
+                <option value="21">만 21세 이상 한정특약</option>
+                <option value="24">만 24세 이상 한정특약</option>
+                <option value="26">만 26세 이상 한정특약</option>
+                <option value="30">만 30세 이상 한정특약</option>
+                <option value="35">만 35세 이상 한정특약</option>
+                <option value="43">만 43세 이상 한정특약</option>
+                <option value="49">만 49세 이상 한정특약</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="seal-trim">출고 예정 모델 트림 구분</label>
+              <select id="seal-trim" name="sealTrim" required>
+                <option value="">세부 트림을 선택하세요</option>
+                <option value="rwd-standard">BYD SEAL RWD 스탠다드 (3,990만원)</option>
+                <option value="rwd-plus">BYD SEAL RWD 플러스 (4,190만원)</option>
+                <option value="awd-dynamic">BYD SEAL Dynamic AWD (4,690만원)</option>
+                <option value="sealion-7">기타: 씨라이언 7 중형 SUV (4,490만원 ~)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="driving-history">기존 자동차보험 가입 경력</label>
+              <select id="driving-history" name="drivingHistory" required>
+                <option value="">경력 구간을 선택하세요</option>
+                <option value="new">신규 최초 가입 (1년 미만)</option>
+                <option value="1to3">운전 경력 1년 이상 ~ 3년 미만</option>
+                <option value="3to5">운전 경력 3년 이상 ~ 5년 미만</option>
+                <option value="5to10">운전 경력 5년 이상 ~ 10년 미만</option>
+                <option value="10plus">장기 무사고 경력 10년 이상</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="accident-history">최근 3개년 사고 이력 유무</label>
+              <select id="accident-history" name="accidentHistory" required>
+                <option value="none">무사고 (안전운행 가산 대상)</option>
+                <option value="1light">단순 접촉사고 및 보험 청구 1회</option>
+                <option value="2heavy">물적 피해 또는 인명 보상 청구 2회</option>
+                <option value="3multiple">과실 사고 누적 3회 이상</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="mileage-range">예상 연간 주행거리 목표 (km)</label>
+              <select id="mileage-range" name="mileageRange" required>
+                <option value="3000">3,000km 이하 (마일리지 할인율 극대화)</option>
+                <option value="5000">5,000km 이하 구간</option>
+                <option value="10000">10,000km 이하 구간</option>
+                <option value="15000">15,000km 이하 구간</option>
+                <option value="unlimited">15,000km 초과 제한 없음</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="demult-limit">대물 배상 책임 설정 한도액</label>
+              <select id="demult-limit" name="demultLimit" required>
+                <option value="200m">대물 2억 원 한도</option>
+                <option value="300m">대물 3억 원 한도</option>
+                <option value="500m" selected>대물 5억 원 한도 (추천 기본 설계)</option>
+                <option value="1000m">대물 10억 원 한도 (외제차 연계 추천)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="payment-preference">가입 시 희망 혜택 및 제휴사</label>
+              <select id="payment-preference" name="paymentPreference" required>
+                <option value="">원하시는 혜택 종류를 선택하세요</option>
+                <option value="naver">네이버페이 제휴 포인트 적립 상품</option>
+                <option value="toss">토스 즉시 환급형 머니 지원금</option>
+                <option value="kakao">카카오페이 주유 및 충전 결제 상품권</option>
+                <option value="direct">순수 카드사 즉시 할인 및 캐시백</option>
+              </select>
+            </div>
+          </div>
+
+          <h3 style="font-size: 1.05rem; margin-top: 25px; margin-bottom: 10px; color: var(--primary-color);">추가 적용 가능한 할인 요인 다중 선택</h3>
+          <div class="checkbox-group">
+            <div class="checkbox-item">
+              <input type="checkbox" id="chk-blackbox" name="chkBlackbox" value="Y" checked>
+              <label for="chk-blackbox">블랙박스 상시 작동</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="chk-tmap" name="chkTmap" value="Y">
+              <label for="chk-tmap">티맵 안전 점수 보유</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="chk-child" name="chkChild" value="Y">
+              <label for="chk-child">만 6세 이하 자녀 양육</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="chk-transit" name="chkTransit" value="Y">
+              <label for="chk-transit">대중교통 월정액 사용</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="chk-safety" name="chkSafety" value="Y" checked>
+              <label for="chk-safety">ADAS 첨단 안전 장치</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="chk-paperless" name="chkPaperless" value="Y" checked>
+              <label for="chk-paperless">모바일 다이렉트 고지</label>
+            </div>
+          </div>
+
+          <div class="form-group" style="margin-top: 20px;">
+            <label for="user-memo">기타 개별 요청 및 특이 사항 (과거 사고 이력 상세 등)</label>
+            <textarea id="user-memo" name="userMemo" rows="4" placeholder="예시: 직전 연도 자차 단독 사고 1회가 있었는데 인수가 거절되지 않는 가장 저렴한곳 위주로 제휴 추천 리스트를 알려주세요."></textarea>
+          </div>
+
+          <div class="checkbox-item" style="margin-top: 20px; align-items: flex-start;">
+            <input type="checkbox" id="chk-agree" name="chkAgree" value="Y" required style="margin-top: 4px;">
+            <label for="chk-agree" style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.4;">
+              본 차량의 평균 요율 가산 방식을 조회하기 위해 필요한 최소한의 고유 식별 정보 제공 및 자가 보험료 비교 컨설팅 목적의 개인정보 취급방침 및 수집 이용에 동의합니다.
+            </label>
+          </div>
+
+          <div style="text-align: center;">
+            <button type="submit" class="btn-cta" style="width: 100%; max-width: 400px; border-radius: 8px;">제휴 다이렉트 맞춤형 요율 견적 분석 요청</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <section id="reference">
+      <span id="reference-anchor" class="anchor"></span>
+      <h2>공식 검증 및 공인 기관 참조 정보 리스트</h2>
+      <p>본 안내 자료는 대한민국 금융위원회 허가 지침과 수입 전기차 인수 조건 기준 요율을 분석하여 정확한 정보를 전달하고자 최선을 다하였습니다. 자동차 법률 정보와 정밀 요율 계산 및 통계 보고서 등 보다 객관적인 분석 근거가 필요하신 경우 아래 공식 정보 사이트를 직접 확인하여 주십시오.</p>
+
+      <div class="link-box">
+        <h4>공인 신뢰 정보 사이트 리스트</h4>
+        <ul class="link-list">
+          <li>
+            <a href="https://namu.wiki/w/BYD%20%EC%94%B0" target="_blank" rel="noopener noreferrer">
+              나무위키 - BYD 씰 공식 스펙 및 역사 자료실
+            </a>
+          </li>
+          <li>
+            <a href="https://www.kidi.or.kr" target="_blank" rel="noopener noreferrer">
+              보험개발원 (KIDI) - 차량 모델별 자차 요율 등급 정보
+            </a>
+          </li>
+          <li>
+            <a href="https://www.knia.or.kr" target="_blank" rel="noopener noreferrer">
+              손해보험협회 (KNIA) - 공시실 내 자동차보험 상품 비교 공시 시스템
+            </a>
+          </li>
+          <li>
+            <a href="https://www.car365.go.kr" target="_blank" rel="noopener noreferrer">
+              국토교통부 자동차365 - 공공 자동차 생애 주기 포털 서비스
+            </a>
+          </li>
+          <li>
+            <a href="https://www.e-insmarket.or.kr" target="_blank" rel="noopener noreferrer">
+              보험다모아 - 금융감독원 후원 공인 다이렉트 가격 정밀 비교 사이트
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <h3>BYD 씰 전용 차량 가입 관련 FAQ</h3>
+      <p><strong>질문: 수입 세단이라서 부품 조달이 어려우면 자차 렌트 특약 비용이 많이 오르나요?</strong><br>
+      답변: 네, 일리가 있는 지적입니다. 해외 직수 부품 대기 시간이 국산 차량 브랜드에 비해 상대적으로 길어질 수 있으므로, 하루당 보상 한도가 보장되는 대차 서비스 특약의 경우 수입차 전용 고급 보장 플랜을 선택하시는 방향이 실주행자들 사이에서 권장됩니다.</p>
+
+      <p><strong>질문: 배터리 보증 케어를 적용받으면 보험료에 영향이 있나요?</strong><br>
+      답변: BYD 공식 사후 관리 보증 정책상 구동 고전압 배터리는 8년 혹은 160000킬로미터 범위 내에서 정품 수리를 보장합니다. 다만 이는 제조 결함이나 성능 저하 보장이며, 접촉 및 외부 침수로 인한 손상은 전적으로 가입하신 자차 책임 범위 내에서 해결하셔야 하므로 하부 보호 및 자차 한도를 최대로 상향해 두시는 설계 방식이 장기 안전을 담보하는 열쇠입니다.</p>
+    </section>
+  </div>
+
+  
